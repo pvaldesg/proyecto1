@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import BoxMenu from './BoxMenu';
 import CartWidget from './CartWidget';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
@@ -14,7 +15,7 @@ const NavBar = () => {
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Diplomados
+              <Link to='/'>Diplomados</Link>
               </Typography>
               <BoxMenu/>
               <Button color="inherit" text="">Registrarse</Button>
