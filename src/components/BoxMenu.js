@@ -4,54 +4,37 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
 //const pages = ['Control de Gestión', 'Tributación', 'Contabilidad', 'Business Analytics'];
+//const ids = [1,2,3,4];
+
+const pages = [
+    {idp: 1, namep: 'Control de Gestión'},
+    {idp: 2, namep: 'Tributación'},
+    {idp: 3, namep: 'Business Analytics'},
+    {idp: 4, namep: 'Contabilidad'}
+]
+
 
 const BoxMenu = () =>{
 
-    const [setAnchorElNav] = React.useState(null);
-
-
+    const [AnchorElNav, setAnchorElNav] = React.useState(null);
     const handleCloseNavMenu = () => {
       setAnchorElNav(null);
     };    
+    console.log(AnchorElNav);
 
     return(
         <>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                <Link to='Categoria/1'>
+        {pages.map((arrPages) => (
+                <Link to={`/categoria/${arrPages.idp}`} key={arrPages.idp}>
                     <Button
                         onClick={handleCloseNavMenu}
                         sx={{ my: 2, color: 'white', display: 'block' }}
                     >
-                        Control de Gestión
+                         {arrPages.namep}
                     </Button>
                 </Link>
-                <Link to='Categoria/2'>    
-                    <Button
-                        key='Menu'
-                        onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                        Tributación
-                    </Button>
-                </Link>    
-                <Link to='Categoria/3'>    
-                    <Button
-                        key='Menu'
-                        onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                        Business Analytics
-                    </Button>
-                </Link>     
-                <Link to='Categoria/4'>    
-                    <Button
-                        key='Menu'
-                        onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                        Contabilidad
-                    </Button>   
-                </Link>                                         
+        ))}        
         </Box>        
 
         {/*

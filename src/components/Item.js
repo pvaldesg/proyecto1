@@ -18,26 +18,30 @@ const Item = (props) => {
 
     return (
             <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-            component="img"
-            height="140"
-            image={props.imagen}
-            alt="Imagen Tarjeta"
-            />
-            <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-                {props.nombre}
-            </Typography>
-            <Typography gutterBottom variant="body2" color="text.secondary"  component="div">
-                {props.intro}
-            </Typography>
-            <Typography variant="body2" component="div">
-                <b>Area:</b> {props.area}
-            </Typography>
-            </CardContent>
-            <CardActions>
-            <Link to={`item/${props.areaid}`}><Button size="small">Ver Detalle</Button></Link>
-            </CardActions>
+                <CardMedia
+                component="img"
+                height="140"
+                image={props.imagen}
+                alt="Imagen Tarjeta"
+                />
+
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {props.nombre}
+                    </Typography>
+                    <Typography gutterBottom variant="body2" color="text.secondary"  component="div">
+                        {props.intro}
+                    </Typography>
+                    <Typography variant="body2" component="div">
+                        <b>Area:</b> {props.area}
+                    </Typography>
+                    <Typography variant="body2" component="div">
+                        <b>Cantidad:</b> {props.stock}
+                    </Typography>                    
+                </CardContent>
+                <CardActions>
+                    <Link to={`/item/${props.nn}`}><Button size="small">Ver Detalle</Button></Link>
+                </CardActions>
         </Card>
     )
 }

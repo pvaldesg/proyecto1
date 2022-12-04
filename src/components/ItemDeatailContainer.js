@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import dataProds from "../utils/dataProds";
 import { customFetch } from "../utils/customFetch";
 import ItemDetail from "./ItemDetail";
-import { Params, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ItemDeatailContainer = () => {
 
@@ -11,10 +11,10 @@ const ItemDeatailContainer = () => {
 
 
     useEffect(()=>{
-        customFetch(2000, dataProds.find(item => item.id == idItem))
+        customFetch(500, dataProds.find(item => item.id === idItem))
         .then(response => setDatoProd(response))
         .catch(err => console.log(err))
-      },[])
+      },[idItem])
   
   
       return(
@@ -23,4 +23,4 @@ const ItemDeatailContainer = () => {
 
 
 }
-export default ItemDeatailContainer;
+export default ItemDeatailContainer; 
