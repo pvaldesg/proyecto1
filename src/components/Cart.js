@@ -1,12 +1,55 @@
 import { Button } from "@mui/material";
 import { useContext } from "react"
 import { CartContext } from "./CartContext"
+import { serverTimestamp, setDoc, doc, collection, updateDoc, increment } from "firebase/firestore";
+import { db } from "../utils/firebaseConfig";
+//import { async } from "@firebase/util";
 
 
 const Cart = () => {
     const test = useContext(CartContext)
     //console.log(test.cartList);
     
+    const createOC = () => {
+        let order = {
+            buyer: {
+                name: 'Perico Palotes',
+                email: 'ppalotes@gmail.com',
+                phone: '123456'
+            },
+            date: serverTimestamp(),
+            items: test.cartList.map(item => ({
+                id: item.id,
+                price: item.valor,
+                title: item.nombre,
+                qty: item.cantidad
+            })),
+            total: test.sumTotsValProds().total
+        }
+        console.log(order)
+
+        const createOrderInFirestore = async () => {
+            const newOrderRef = doc(collection(db, 'orders'))
+            await setDoc(newOrderRef, order)   
+            return newOrderRef 
+        }
+
+        createOrderInFirestore()
+            .then(response => {
+                alert('Order ID: ' + response.id)
+                test.cartList.forEach(async(item) => {
+                    const itemRef = doc(db, "Diplomados", item.id);
+                    //console.log(item)
+                    await updateDoc(itemRef, {
+                        stock: increment(-parseInt(item.cantidad))
+                      })
+
+                })
+                test.clearCart()
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <>
             {
@@ -29,6 +72,8 @@ const Cart = () => {
             impuesto: {test.sumTotsValProds().impuesto}
             <br/>
             total: {test.sumTotsValProds().total}
+            <br/><br/>
+            <Button onClick={createOC}>Crear Orden de Compra</Button>
 
         </>
     )
